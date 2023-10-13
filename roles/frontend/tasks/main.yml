@@ -1,0 +1,26 @@
+- name: install nginx
+  ansible.builtin.yum:
+    name: nginx
+    state: installed
+
+- name: copying roboshop.conf file
+  ansible.builtin.file:
+    src: roboshop.conf
+    dest: /etc/nginx/default.d/roboshop.conf
+
+- name: removing the existing content available in the below location
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: download the application code
+  ansible.builtin.file:
+    src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+    dest: /usr/share/nginx/html
+
+- name: restarting nginx
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+    enabled: yes
+
