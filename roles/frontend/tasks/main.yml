@@ -13,10 +13,16 @@
     path: /usr/share/nginx/html
     state: absent
 
-- name: download the application code
+- name: create new app directory
   ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: directory
+
+- name: download the application code
+  ansible.builtin.unarchive:
     src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
     dest: /usr/share/nginx/html
+    remote_src: yes
 
 - name: restarting nginx
   ansible.builtin.service:
