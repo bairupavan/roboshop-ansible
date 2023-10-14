@@ -1,5 +1,7 @@
 - name: roboshop project
   hosts: all
-  become: yes
+  become: yes         # to run under as a root user
   roles:
-    - '{{role_name}}'
+    - '{{role_name}}' # role name dynamically passed when running playbook
+
+#  ansible-playbook -i localhost, -e ansible_user=centos -e ansible_password=DevOps321 roboshop.yml -e role_name=frontend
