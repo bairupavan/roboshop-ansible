@@ -4,8 +4,8 @@
     state: installed
 
 - name: copying roboshop.conf file
-  ansible.builtin.copy:                 # copy module to copy the file
-    src: roboshop.conf                  # the file is in the same role so no need to mention the full file path
+  ansible.builtin.template: # template is used to copy same as copy module. but the diff is when passing values dynamic
+    src: roboshop.conf      # the values will be replaced using templates. but in copy it will not
     dest: /etc/nginx/default.d/roboshop.conf
 
 - name: removing the existing content available in the below location
