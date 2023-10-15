@@ -5,7 +5,7 @@
 
 - name: start {{component}} service
   ansible.builtin.systemd:        # staring the service systemd module
-    name: {{component}}
+    name: "{{component}}"
     state: restarted
     daemon-reload: true           # deamon-reload config
     enabled: true
