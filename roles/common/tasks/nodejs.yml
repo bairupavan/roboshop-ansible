@@ -17,11 +17,8 @@
 
 - name: importing the schema_setup.yml
   ansible.builtin.import_tasks:     # importing the other task here from the same role
-  file: schema_setup.yml            # task which is being imported
+    file: schema_setup.yml            # task which is being imported
 
 - name: importing systemd_setup.yml
   ansible.builtin.import_tasks:     # importing the other task here from the same role
     file: systemd_setup.yml         # task which is being imported
-
-
-
