@@ -1,0 +1,16 @@
+- name: schema mongodb
+  when: schema_setup="mongo"              # executes the whole below block when schema_setup=mongo
+  block:                                  # checking the condition for block of tasks
+    - name: setup mongo repo file and copying it
+      ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+
+    - name: install mongodb client
+      ansible.builtin.yum:
+        name: mongodb-org-shell
+        state: installed
+
+    - name: loading mongodb schema
+      ansible.builtin.shell: mongo --host {{ lookup('aws_ssm', 'dev.catalogue.mongodb_endpoint', region='us-east-1') }} </app/schema/${component}.js
+

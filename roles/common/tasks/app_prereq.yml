@@ -1,0 +1,19 @@
+- name: add application user
+  ansible.builtin.user:                     # user module to add the user
+    name: '{{app_user}}'
+
+- name: remove the directory if exists
+  ansible.builtin.file:                     # file module
+    path: /app
+    state: absent                           # deleting the directory /app
+
+- name: create directory
+  ansible.builtin.file:                     # file module
+    path: /app
+    state: directory                        # creating the directory /app
+
+- name: download the application code
+  ansible.builtin.unarchive:                # downloads the zip content and unzips it
+    src: https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
+    dest: /app                              # unzips the downloaded content in /app folder
+    remote_src: true

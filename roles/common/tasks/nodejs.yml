@@ -1,0 +1,27 @@
+- name: setup nodejs
+  ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash #using shell module in ansible
+
+- name: install nodejs
+  ansible.builtin.yum:
+    name: nodejs
+    state: installed
+
+- name: importing the app_prereq.yml
+  ansible.builtin.import_tasks:     # importing the other task here from the same role
+    file: app_prereq.yml            # task which is being imported
+
+- name: download the dependencies
+  ansible.builtin.shell: npm install  # downloading npm dependencies using shell module
+  args:
+    chdir: /app                       # before running the above command changing the directory location to /app
+
+- name: importing the schema_setup.yml
+  ansible.builtin.import_tasks:     # importing the other task here from the same role
+  file: schema_setup.yml            # task which is being imported
+
+- name: importing systemd_setup.yml
+  ansible.builtin.import_tasks:     # importing the other task here from the same role
+    file: systemd_setup.yml         # task which is being imported
+
+
+
