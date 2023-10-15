@@ -3,8 +3,8 @@
   block:                                  # checking the condition for block of tasks
     - name: setup mongo repo file and copying it
       ansible.builtin.copy:
-      src: mongo.repo
-      dest: /etc/yum.repos.d/mongo.repo
+        src: mongo.repo
+        dest: /etc/yum.repos.d/mongo.repo
 
     - name: install mongodb client
       ansible.builtin.yum:
