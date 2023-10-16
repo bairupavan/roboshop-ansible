@@ -1,4 +1,4 @@
-- name:
+- name: install python
   ansible.builtin.yum:
     name:
       - python36
@@ -12,6 +12,8 @@
 
 - name: download the python dependencies
   ansible.builtin.shell: pip3.6 install -r requirements.txt
+  args:
+    chdir: /app
 
 - name: Importing task systemd_setup
   ansible.builtin.import_tasks:
