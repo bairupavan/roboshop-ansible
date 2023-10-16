@@ -1,21 +1,21 @@
 - name: install maven
-  ansible.builtin.yum:
+  ansible.builtin.yum:            # yum module to install pcakages
     name: maven
     state: installed
 
 - name: Importing task app_prereq.yml
-  ansible.builtin.import_tasks:
+  ansible.builtin.import_tasks:           # importing the task app_prereq.yml
     file: app_prereq.yml
 
 - name: download the dependencies and build application
-  ansible.builtin.shell: mvn clean package ; mv target/{{component}}-1.0.jar {{component}}.jar
+  ansible.builtin.shell: mvn clean package ; mv target/{{component}}-1.0.jar {{component}}.jar # running two shell commands
   args:
-    chdir: /app
+    chdir: /app       # changing the directory to /app before running the above two shell commands
 
 - name: Importing task schema_setup
-  ansible.builtin.import_tasks:
+  ansible.builtin.import_tasks:       # importing the task schema_setup.yml
     file: schema_setup.yml
 
 - name: Importing task systemd_setup
-  ansible.builtin.import_tasks:
+  ansible.builtin.import_tasks:       # importing the task systemd_setup.yml
     file: systemd_setup.yml

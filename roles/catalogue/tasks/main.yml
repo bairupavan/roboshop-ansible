@@ -1,4 +1,4 @@
-- name: Catalogue service
-  ansible.builtin.import_role:
+- name: Importing common nodejs
+  ansible.builtin.import_role:      # importing the role common
     name: common
-    tasks_from: nodejs
+    tasks_from: nodejs              # importing the task nodejs from common role

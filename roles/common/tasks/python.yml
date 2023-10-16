@@ -1,20 +1,20 @@
 - name: install python
-  ansible.builtin.yum:
+  ansible.builtin.yum:      # yum to install softwares
     name:
-      - python36
+      - python36            # installing multiple softwares in list
       - gcc
       - python3-devel
     state: installed
 
 - name: Importing task app_prereq.yml
-  ansible.builtin.import_tasks:
+  ansible.builtin.import_tasks:       # importing the task app_prereq.yml
     file: app_prereq.yml
 
 - name: download the python dependencies
   ansible.builtin.shell: pip3.6 install -r requirements.txt
   args:
-    chdir: /app
+    chdir: /app         # changing the directory to /app before running the above shell command
 
 - name: Importing task systemd_setup
-  ansible.builtin.import_tasks:
+  ansible.builtin.import_tasks:     # importing the task systemd_setup.yml
     file: systemd_setup.yml

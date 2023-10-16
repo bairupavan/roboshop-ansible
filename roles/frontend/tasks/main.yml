@@ -9,12 +9,12 @@
     dest: /etc/nginx/default.d/roboshop.conf
 
 - name: removing the existing content available in the below location
-  ansible.builtin.file:                 # file module to create and delete paths
+  ansible.builtin.file:                 # file module to delete paths
     path: /usr/share/nginx/html
     state: absent
 
 - name: create new app directory
-  ansible.builtin.file:
+  ansible.builtin.file:                 # file module to create paths
     path: /usr/share/nginx/html
     state: directory
 
