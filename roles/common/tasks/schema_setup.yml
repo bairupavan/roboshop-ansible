@@ -1,4 +1,4 @@
-- name: schema mongodb
+- name: load schema mongodb
   when: schema_setup == "mongo"              # executes the whole below block when schema_setup=mongo
   block:                                  # checking the condition for block of tasks
     - name: setup mongo repo file and copying it
@@ -13,4 +13,20 @@
 
     - name: loading mongodb schema
       ansible.builtin.shell: mongo --host {{ lookup('aws_ssm', 'dev.catalogue.mongodb_endpoint', region='us-east-1') }} </app/schema/{{component}}.js
+
+- name: load schema mysql
+  when: schema_setup == "mysql"
+  block:
+    - name: setup mysql repo file and copying it
+      ansible.builtin.copy:
+        src: mysql.repo
+        dest: /etc/yum.repos.d/mysql.repo
+
+    - name: install mqsql client
+      ansible.builtin.yum:
+        name: mysql
+        state: installed
+
+    - name: loading mysql schema
+      ansible.builtin.shell: mysql -h {{ lookup('aws_ssm', 'dev.shipping.DB_HOST', region='us-east-1') }} -u{{lookup('aws_ssm', 'dev.shipping.db_user', region='us-east-1') }} -p{{ lookup('aws_ssm', 'dev.shipping.db_password', region='us-east-1') }} < /app/schema/{{component}}.sql
 
