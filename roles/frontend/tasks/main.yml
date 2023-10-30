@@ -8,6 +8,11 @@
     src: roboshop.conf      # the values will be replaced using templates. but in copy it will not
     dest: /etc/nginx/default.d/roboshop.conf
 
+- name: copying nginx.conf file
+  ansible.builtin.template:
+    src: nginx.conf                   # copying nginx.conf file
+    dest: /etc/nginx/nginx.conf
+
 - name: removing the existing content available in the below location
   ansible.builtin.file:                 # file module to delete paths
     path: /usr/share/nginx/html
