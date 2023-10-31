@@ -28,3 +28,6 @@ scrape_configs:
     ec2_sd_configs:           # connecting to the aws region. an iam role with ec2 read access is attached to prometheus instance
       - region: us-east-1     # to access ec2 applications on prometheus
         port: 9090
+        filters:
+          - name: tag:Monitor       # using the tag Monitor true to app servers to monitor logs for apps on prometheus
+            values: [ "true" ]
