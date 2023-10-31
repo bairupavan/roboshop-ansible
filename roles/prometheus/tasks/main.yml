@@ -1,0 +1,9 @@
+- name: copy prometheus config file
+  ansible.builtin.template:                   # copying the modified prometheus.yml file
+    src: prometheus                # to The job name is added as a label to any timeseries scraped from this config.
+    dest: /opt/prometheus/prometheus.yml
+
+- name: Restart prometheus
+  ansible.builtin.systemd:          # starting prometheus
+    name: prometheus
+    state: restarted
