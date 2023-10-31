@@ -22,3 +22,8 @@
 - name: importing systemd_setup.yml
   ansible.builtin.import_tasks:     # importing the other task here from the same role
     file: systemd_setup.yml         # task which is being imported
+
+- name: Import prometheus node exporter
+  ansible.builtin.import_role:
+    name: prometheus                      # importing the role prometheus
+    tasks_from: node_exporter             # importing the task node_exporter from prometheus role

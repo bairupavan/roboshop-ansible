@@ -40,3 +40,8 @@
     name: elk                            # importing the role elk
     tasks_from: filebeat                 # importing the task filebeat from elk role
 
+- name: Import prometheus node exporter
+  ansible.builtin.import_role:
+    name: prometheus                      # importing the role prometheus
+    tasks_from: node_exporter             # importing the task node_exporter from prometheus role
+
