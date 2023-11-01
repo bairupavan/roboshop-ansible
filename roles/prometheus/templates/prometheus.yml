@@ -31,3 +31,11 @@ scrape_configs:
         filters:
           - name: tag:Monitor       # using the tag Monitor true to app servers to monitor logs for apps on prometheus
             values: [ "true" ]
+
+    relabel-configs:
+      - source_labels: [ __meta_ec2_tag_Name ]    # created more tag names in prometheus UI to identify the  app servers
+        target_label: name
+      - source_labels: [ __meta_ec2_tag_env ]     # identify which env server on prometheus
+        target_label: env
+      - source_labels: [ __meta_ec2_tag_component ]   # to identify the app name on prometheus
+        target_label: component
