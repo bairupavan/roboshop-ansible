@@ -33,9 +33,8 @@ scrape_configs:
             values: [ "true" ]
 
     relabel-configs:
-      - source_labels: [ __meta_ec2_tag_Name ]    # created more tag names in prometheus UI to identify the  app servers
-        target_label: name
-      - source_labels: [ __meta_ec2_tag_env ]     # identify which env server on prometheus
-        target_label: env
-      - source_labels: [ __meta_ec2_tag_component ]   # to identify the app name on prometheus
-        target_label: component
+      {% for label in labels %}         # created more tag names in loops as labels in prometheus UI to identify the app servers
+
+      - source_labels: [ __meta_ec2_tag_{{ label.tag }} ]
+        target_label: {{ label.label }}
+      {%- endfor %}

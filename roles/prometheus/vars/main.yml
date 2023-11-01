@@ -1,0 +1,4 @@
+labels:     # created more tag names in prometheus UI to identify the  app servers
+  - { tag: Name, label: name }
+  - { tag: env, label: env }
+  - { tag: component, label: component }
